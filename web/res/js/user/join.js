@@ -1,8 +1,8 @@
 {
     let idChkState = 0; // 0: 아이디 사용 불가능, 1: 아이디 사용가능, 2: 체크 안함
     const joinFrmElem = document.querySelector('#join-frm');
-    const idRegex = /^([a-zA-Z09]{4,15})$/g;
-    const pwRegex = /^([a-zA-Z09!@_]{4,20})$/g; // 대소문자 + 숫자 + !@_ 조합(4~20)
+    const idRegex = /^([a-zA-Z09]{4,15})$/;
+    const pwRegex = /^([a-zA-Z09!@_]{4,20})$/; // 대소문자 + 숫자 + !@_ 조합(4~20)
     const nmRegex = /^([가-힣]{2,5})$/
     const msg1 = '아이디는 대소문자, 숫자 조합으로 4~15자';
     // 중복체크 메세지 함수

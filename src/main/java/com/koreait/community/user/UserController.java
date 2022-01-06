@@ -1,11 +1,10 @@
 package com.koreait.community.user;
 
+import com.koreait.community.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +17,23 @@ public class UserController {
 
     @GetMapping("/join")
     public void join(){}
+
+    @PostMapping("/join")
+    public String joinProc(UserEntity entity, RedirectAttributes ra){
+        int result = service.insUser(entity);
+        switch (result) {
+            case 0:
+                ra.addFlashAttribute("msg", "회원가입에 실패");
+                break;
+            case 1:
+                return "redirect:/user/login";
+
+        }
+
+        return "redirect:/user/join";
+
+    }
+
     @GetMapping("/login")
     public void login(){}
 
