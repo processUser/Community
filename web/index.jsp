@@ -12,5 +12,8 @@
   </head>
   <body>
   $END$
+  <a href="/board/list">LIST</a>
+  <a href="/user/join">JOIN</a>
+  <a href="/user/login">LOGIN</a>
   </body>
 </html>

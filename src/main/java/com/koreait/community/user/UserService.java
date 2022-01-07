@@ -1,22 +1,54 @@
 package com.koreait.community.user;
 
+import com.koreait.community.UserUtils;
 import com.koreait.community.model.UserEntity;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class UserService {
     @Autowired
     private UserMapper mapper;
 
+    @Autowired
+    private UserUtils UserUtils;
     // 회원가입
     public int insUser(UserEntity entity){
-        String pw = entity.getUpw();
-        String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
-        entity.setUpw(hashPw);
+        UserEntity copyEntity = new UserEntity();
+        BeanUtils.copyProperties(entity, copyEntity); // 깊은 복사
 
-        return mapper.insUser(entity);
+        // 비밀번호 암호화
+        String hashPw = BCrypt.hashpw(copyEntity.getUpw(), BCrypt.gensalt());
+        copyEntity.setUpw(hashPw);
+
+        return mapper.insUser(copyEntity);
+    }
+
+    public int login(UserEntity entity){
+        try {
+            UserEntity logInUser = mapper.selUser(entity);
+            if(logInUser == null){
+                //아이디 없음
+                return 2;
+            }
+            if(BCrypt.checkpw(entity.getUpw(), logInUser.getUpw())){
+                //true
+                logInUser.setUpw(null);
+                logInUser.setRdt(null);
+                logInUser.setMdt(null);
+                UserUtils.setLoginUser(logInUser);
+                return 1;
+            } else {
+                // 비밀번호 없음.
+                return 3;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     //아이디가 없으면 리턴 1, 있으면 리턴 0

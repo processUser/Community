@@ -1,4 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<header>
-    <h1>헤더</h1>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<tiles:importAttribute name="menuList" />
+<header class="h50">
+    <div class="flex-container flex-align-center p-lr20 ">
+        <c:choose>
+            <c:when test="${sessionScope.loginUser == null}">
+                <div class="m-r-20"><a href="/user/login" class="font-color-white">로그인</a></div>
+            </c:when>
+            <c:otherwise>
+                <div class="m-r-20"><a href="/user/profile" class="font-color-white">프로필</a></div>
+                <div class="m-r-20"><a href="/user/logout" class="font-color-white">로그아웃</a></div>
+            </c:otherwise>
+        </c:choose>
+
+        <c:forEach items="${menuList}" var="item"><%--pageScope에 담긴다?--%>
+            <div class="m-r-20"><a href="/board/list/${item.icategory}" class="font-color-white">${item.nm}</a></div>
+        </c:forEach>
+    </div>
 </header>
