@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +57,12 @@ public class UserController {
         ra.addFlashAttribute("uid", entity.getUid());
         return "redirect:/user/login";
 
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession hs) {
+        hs.invalidate();
+        return "redirect:/user/login";
     }
 
     @GetMapping("/idChk/{uid}")

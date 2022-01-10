@@ -5,6 +5,7 @@ public class Const {
     public static final String MSG = "msg";
     public static final String MENU_LIST = "menuList";
     public static final String LIST = "list";
+    public static final String DATA = "data";
     public static final String I_CATEGORY = "icategory";
 
     public static final String ERR_1 = "로그인에 실패했습니다.";

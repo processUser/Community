@@ -21,7 +21,7 @@
                         <th>reg date</th>
                     </tr>
                     <c:forEach items="${requestScope.list}" var="item">
-                        <tr>
+                        <tr class="record" data-iboard="${item.iboard}">
                             <td>${item.iboard}</td>
                             <td><c:out value="${item.title}" /></td>
                             <td>${item.hits}</td>
@@ -34,3 +34,4 @@
         </c:choose>
     </div>
 </div>
+

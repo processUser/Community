@@ -11,6 +11,12 @@ a{
 header{
     background-color: coral;
 }
+.menu-selected{
+    font-weight: bold;
+}
+.menu-selected a{
+    color: red;
+}
 
 .flex-container {
     display: flex;

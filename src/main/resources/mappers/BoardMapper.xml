@@ -15,5 +15,43 @@
         order by A.iboard desc
     </select>
 
+    <select id="selBoardDetail" resultType="BoardVo">
+        select A.iboard, A.icategory, A.title, A.ctnt, A.iuser, A.hits, A.rdt, A.lastip, B.nm as writernm, B.profileimg, C.nm as categorynm
+        from t_board A
+        left join t_user B
+        on A.iuser = B.iuser
+        left join t_board_category C
+        on A.icategory = C.icategory
+        where A.iboard = ${iboard}
+        order by A.iboard desc
+    </select>
+
+    <update id="addHits">
+        update t_board
+        set hits = hits + 1
+        where iboard = ${iboard}
+    </update>
+
+    <update id="updBoard">
+        update t_board
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="ctnt != null and ctnt != ''">
+                ctnt = #{ctnt},
+            </if>
+            <if test="lastip != null and lastip != ''">
+                lastip = #{lastip},
+            </if>
+            <if test="isdel == 1">
+                isdel = 1
+            </if>
+        </set>
+        where iboard = ${iboard}
+        <if test=" lastip == null">
+            and iuser = ${iuser}
+        </if>
+    </update>
 
 </mapper>

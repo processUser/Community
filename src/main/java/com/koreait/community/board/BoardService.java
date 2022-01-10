@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BoardService {
@@ -18,13 +19,31 @@ public class BoardService {
     @Autowired
     private UserUtils userUtils;
 
+    public int insBoard(BoardEntity entity){
+        entity.setIuser(userUtils.getLoginUserPk());
+        return mapper.insBoard(entity);
+    }
+
     public List<BoardVo> selBoardList(BoardDTO dto){
 
         return mapper.selBoardList(dto);
     }
 
-    public int insBoard(BoardEntity entity){
+    public BoardVo selBoardDetail(BoardDTO dto) {
+        BoardVo detail =  mapper.selBoardDetail(dto);
+        if(!Objects.equals(dto.getLastip(), detail.getLastip())){
+            int hitsResult = mapper.addHits(dto);
+            if(hitsResult == 1){
+                detail.setHits(detail.getHits() + 1);
+            }
+            mapper.updBoard(dto);
+        }
+        return detail;
+    }
+
+    public int delBoard(BoardEntity entity) {
         entity.setIuser(userUtils.getLoginUserPk());
-        return mapper.insBoard(entity);
+        entity.setIsdel(1);
+        return mapper.updBoard(entity);
     }
 }
