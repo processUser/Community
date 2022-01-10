@@ -31,7 +31,7 @@ public class BoardController {
 
     @PostMapping("/write")
     public String writeProc(BoardEntity entity){
-        service.insBoard(entity);
-        return "redirect:/board/list/"+entity.getIcategory();
+        int result = service.insBoard(entity);
+        return "redirect:/board/list/" + entity.getIcategory();
     }
 }

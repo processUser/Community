@@ -6,11 +6,7 @@
 <div>
     <h1>글쓰기</h1>
     <form action="/board/write" method="post">
-        <div><select name="icategory">
-            <c:forEach items="${menuList}" var="item"><%--pageScope에 담긴다?--%>
-                <option value="${item.icategory}">${item.nm}</option>
-            </c:forEach>
-        </select></div>
+        <input type="hidden" name="icategory" value="${param.icategory}">
         <div><label>제목 : <input type="text" name="title"></label></div>
         <div><label>내용 : <textarea name="ctnt"></textarea></label></div>
         <div><input type="submit"value="write"></div>
