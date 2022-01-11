@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,9 +44,28 @@ public class BoardController {
         dto.setLastip(lastIp);
         model.addAttribute(Const.DATA, service.selBoardDetail(dto));
     }
+
+    @GetMapping("/mod")
+    public String mod(BoardDTO dto, Model model){
+        model.addAttribute(Const.DATA, service.selBoardDetail(dto));
+        return "board/write";
+    }
+    @PostMapping("/mod")
+    public String modProc(BoardEntity entity){
+        int result = service.updBoard(entity);
+        return "redirect:/board/detail?iboard=" + entity.getIboard();
+    }
+
     @GetMapping("/del")
     public String delProc(BoardEntity entity) {
         int result = service.delBoard(entity);
         return "redirect:/board/list/" + entity.getIcategory();
+    }
+
+    @ResponseBody
+    @PostMapping("/mypage/profile")
+    public String mypageProfileProc(MultipartFile profileimg) {
+        System.out.println("fileName : " + profileimg.getOriginalFilename());
+        return "{\"result\" : \"Good!!\"}";
     }
 }

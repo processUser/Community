@@ -31,14 +31,18 @@ public class BoardService {
 
     public BoardVo selBoardDetail(BoardDTO dto) {
         BoardVo detail =  mapper.selBoardDetail(dto);
-        if(!Objects.equals(dto.getLastip(), detail.getLastip())){
+        if(dto.getLastip() != null && !Objects.equals(dto.getLastip(), detail.getLastip())){
             int hitsResult = mapper.addHits(dto);
             if(hitsResult == 1){
                 detail.setHits(detail.getHits() + 1);
             }
-            mapper.updBoard(dto);
         }
         return detail;
+    }
+
+    public int updBoard(BoardEntity entity){
+        entity.setIuser(userUtils.getLoginUserPk());
+        return mapper.updBoard(entity);
     }
 
     public int delBoard(BoardEntity entity) {

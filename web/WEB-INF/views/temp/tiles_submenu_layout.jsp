@@ -6,19 +6,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
     <link rel="stylesheet" href="/res/css/<tiles:getAsString name="common"/>.css">
     <link rel="stylesheet" href="/res/css/<tiles:getAsString name="addr1"/>/index.css">
     <link rel="stylesheet" href="/res/css/<tiles:getAsString name="addr2"/>.css">
     <script defer src="/res/js/<tiles:getAsString name="common"/>.js"></script>
     <script defer src="/res/js/<tiles:getAsString name="addr1"/>/index.js"></script>
     <script defer src="/res/js/<tiles:getAsString name="addr2"/>.js"></script>
-    <title><tiles:getAsString name="title" /></title>
 </head>
 <body>
     <div id="container">
         <tiles:insertAttribute name="header"/>
-        <section>
-            <tiles:insertAttribute name="body" />
+        <section class="submenu-section">
+            <div class="p10">
+                <ul>
+                    <li><a href="">프로필</a></li>
+                    <li><a href="">비밀번호변경</a></li>
+                </ul>
+            </div>
+            <div>
+                <tiles:insertAttribute name="content" />
+            </div>
         </section>
         <tiles:insertAttribute name="footer"/>
     </div>
