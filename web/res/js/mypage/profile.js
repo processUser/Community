@@ -1,4 +1,8 @@
 {
+    // Data Element
+    const dataElem = document.querySelector('#data')
+
+    //input type ="file"
     const profileFileElem = document.querySelector('#profile-file');
     if(profileFileElem){
         profileFileElem.addEventListener('change',() =>{
@@ -9,11 +13,13 @@
         })
     }
     //프로필 이미지 클릭 이벤트
-    const profileileViewElem = document.querySelector('#profile-view');
-    if(profileileViewElem){
-        profileileViewElem.addEventListener('click', ()=>{
-            profileFileElem.click()
-        })
+    const profileViewElem = document.querySelector('#profile-view');
+    if(profileViewElem) {
+        profileViewElem.addEventListener('click', () => {
+            if(profileFileElem) {
+                profileFileElem.click();
+            }
+        });
     }
     //이미지 업로드
     const uploadProfileImg = (img) => {
@@ -21,15 +27,32 @@
         fData.append('profileimg', img);
 
         fetch('/user/mypage/profile', {
-            'method' : 'post',
-            'body' : fData
+            'method': 'post',
+            'body': fData
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                console.log(data);
+                setProfileImg(data)
             })
-            .catch(e =>{
-                console.log(e)
-        })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
+    //이미지 세팅
+    const setProfileImg = (data) => {
+        if(!data.result) { return;}
+
+        //프로필 이미지
+        const iuser = dataElem.dataset.iuser;
+        const src = `/images/user/${iuser}/${data.result}`;
+
+        const img = profileViewElem.querySelector('img');
+        img.src = src;
+
+        //헤더 이미지
+        const headerProfileImgElem = document.querySelector('#header-profileimg');
+        headerProfileImgElem.src = src;
     }
 }

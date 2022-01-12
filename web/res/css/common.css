@@ -48,6 +48,9 @@ header{
 .m-r-20{
     margin-right: 20px
 }
+.m-l-20{
+    margin-left: 20px;
+}
 
 .p10{
     padding: 10px;
@@ -63,4 +66,9 @@ header{
 }
 .hidden{
     display: none;
+}
+
+.circular{
+    width: 35px; height: 35px;
+    border-radius: 50%;
 }

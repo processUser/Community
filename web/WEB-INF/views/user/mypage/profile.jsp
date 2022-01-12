@@ -3,10 +3,11 @@
 
 <c:set var="profileImg" value="/res/img/defultProfile.png" />
 <c:if test="${sessionScope.loginUser.profileimg != null}">
-    <c:set var="profileImg" value="/res/img/user/${sessionScope.loginUser.iuser}/${sessionScope.loginUser.profileimg}" />
+    <c:set var="profileImg" value="/images/user/${sessionScope.loginUser.iuser}/${sessionScope.loginUser.profileimg}" />
 </c:if>
 
 <h1>프로필</h1>
+<div id="data" data-iuser="${sessionScope.loginUser.iuser}"></div>
 <div id="profile-view" class="pointer"><img src="${profileImg}" alt=""></div>
 <input type="file" id="profile-file" class="hidden" accept="image/*">
 <div>아이디: ${sessionScope.loginUser.uid}</div>
