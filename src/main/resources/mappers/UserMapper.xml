@@ -6,7 +6,9 @@
     </insert>
     <select id="selUser" resultType="UserEntity">
         select * from t_user
-        where uid = #{uid}
+        where
+        <if test="uid != null and uid != ''"> uid = #{uid} </if>
+        <if test="iuser > 0"> iuser = #{iuser} </if>
     </select>
 
     <update id="updUser">

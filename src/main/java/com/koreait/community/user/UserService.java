@@ -4,6 +4,7 @@ import com.koreait.community.Const;
 import com.koreait.community.MyFileUtils;
 import com.koreait.community.UserUtils;
 import com.koreait.community.model.UserEntity;
+import com.koreait.community.model.UserDto;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,19 @@ public class UserService {
         UserEntity result = mapper.selUser(entity);
 
         return result == null ? 1 : 0;
+    }
+
+    public int changUpw(UserDto dto) {
+        dto.setIuser(userUtils.getLoginUserPk());
+        UserEntity logInUser = mapper.selUser(dto);
+
+        if(!BCrypt.checkpw(dto.getUpw(), logInUser.getUpw())) {
+            return 2; // 현재 비밀번호 다름
+        }
+        // 비밀번호 암호화
+        String hashPw = BCrypt.hashpw(dto.getNowpw(), BCrypt.gensalt());
+        dto.setUpw(hashPw);
+        return mapper.updUser(dto);
     }
 
     //이미지 업로드 처리및 저장 파일명 리턴

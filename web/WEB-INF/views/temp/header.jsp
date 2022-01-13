@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="my" uri="tld/MyCustomTag.tld" %>
+<%@ taglib prefix="myjstl" uri="tld/MyCustomJstlTag.tld" %>
+
 <tiles:importAttribute name="menuList" />
 
 <c:set var="currentPagePath" value="${requestScope['javax.servlet.forward.request_uri']}" />
@@ -21,8 +24,15 @@
                     <c:set var="profileImg" value="/images/user/${sessionScope.loginUser.iuser}/${sessionScope.loginUser.profileimg}" />
                 </c:if>
 
-                <div class="m-r-20 m-l-20"><a href="/user/mypage/profile" class="font-color-white"><div class="pointer "><img src="${profileImg}" class="circular" id="header-profileimg" alt=""></div></a></div>
                 <div class="m-r-20"><a href="/user/logout" class="font-color-white">로그아웃</a></div>
+                <div class="m-r-20 m-l-20">
+                    <a href="/user/mypage/profile" class="font-color-white">
+                        <myjstl:profileImg imgIdVal="header-profileimg" idVal="pointer" classVal="circular circular--img wh-30"
+                                           iuser="${sessionScope.loginUser.iuser}" profileImgVal="${sessionScope.loginUser.profileimg}"/>
+                    </a>
+                </div>
+<%--                <div class="m-r-20 m-l-20"><a href="/user/mypage/profile" class="font-color-white"><div class="pointer "><img src="${profileImg}" class="circular" id="header-profileimg" alt=""></div></a></div>--%>
+<%--                <div class="m-r-20">${my:profileImg('', 'circular--img wh-30', sessionScope.loginUser.iuser, sessionScope.loginUser.profileimg)}</div>--%>
             </c:otherwise>
         </c:choose>
 

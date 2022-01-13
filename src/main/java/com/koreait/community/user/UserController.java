@@ -2,6 +2,7 @@ package com.koreait.community.user;
 
 import com.koreait.community.Const;
 import com.koreait.community.model.UserEntity;
+import com.koreait.community.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -85,5 +86,31 @@ public class UserController {
         Map<String, String> result = new HashMap<>();
         result.put("result", fileNm);
         return result;
+    }
+
+    @GetMapping("/mypage/password")
+    public void password() {}
+
+    @PostMapping("/mypage/password")
+    public String passwordProc(UserDto dto, HttpSession hs, RedirectAttributes rAttr) {
+        System.out.println(dto.getNowpw());
+        System.out.println(dto.getUpw());
+        int result = service.changUpw(dto);
+
+        if(result != 1){
+            switch (result) {
+                case 0:
+                    rAttr.addFlashAttribute(Const.MSG,"비밀번호 변경에 실패하였습니다.");
+                    break;
+                case 2:
+                    rAttr.addFlashAttribute(Const.MSG,"현재 비밀번호를 확인 해주세요");
+                    break;
+            }
+            //return "user/mypage/password";  // f5(새로고침)시 post가 또 이루어진다.
+            return "redirect:/user/mypage/password";
+
+        }
+        hs.invalidate();
+        return "redirect:/user/logout";
     }
 }
