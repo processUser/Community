@@ -3,6 +3,8 @@ package com.koreait.community.board;
 import com.koreait.community.Const;
 import com.koreait.community.model.BoardDTO;
 import com.koreait.community.model.BoardEntity;
+import com.koreait.community.model.BoardPrevNextVo;
+import com.koreait.community.model.BoardVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
+@Controller  // jsp
 @RequestMapping("/board")
 public class BoardController {
 
@@ -42,7 +44,11 @@ public class BoardController {
             lastIp = req.getRemoteAddr();
         }
         dto.setLastip(lastIp);
-        model.addAttribute(Const.DATA, service.selBoardDetail(dto));
+        BoardVo vo = service.selBoardDetail(dto);
+        BoardPrevNextVo pnVo = service.selPrevNext(vo);
+        model.addAttribute(Const.DATA, vo);
+        model.addAttribute(Const.PREV_NEXT, pnVo);
+
     }
 
     @GetMapping("/mod")
