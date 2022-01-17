@@ -50,6 +50,12 @@ const myFetch = {
             .then(res => res.json())
             .then(cb)
             .catch(e => {console.log(e);});
+    },
+    delete: function (url, cb) {
+        return this.send(fetch(url,{
+            'method': 'delete',
+            'headers': {'Content-Type': 'application/json'},
+        }), cb)
     }
 }
 /*

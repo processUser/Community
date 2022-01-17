@@ -7,7 +7,7 @@
             <button id="btnDel">삭제</button>
         </div>
     </c:if>
-    <div id="data" data-icategory="${data.icategory}" data-iboard="${data.iboard}"></div>
+    <div id="data" data-icategory="${data.icategory}" data-iboard="${data.iboard}" data-iuser="${sessionScope.loginUser.iuser}"></div>
 
     <div>
         <c:if test="${requestScope.prevNext.previboard > 0}">
@@ -34,5 +34,5 @@
         </div>
     </c:if>
     <hr>
-    <div class="m-t-15">댓글 리스트</div>
+    <div class="m-t-15" id="cmt_list"></div>
 </div>

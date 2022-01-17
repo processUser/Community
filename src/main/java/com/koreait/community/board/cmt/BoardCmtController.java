@@ -1,13 +1,12 @@
 package com.koreait.community.board.cmt;
 
 import com.koreait.community.model.BoardCmtEntity;
+import com.koreait.community.model.BoardCmtVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController // json 이루어지는 경우 사용.
@@ -21,6 +20,19 @@ public class BoardCmtController {
         System.out.println(entity);
         Map<String, Integer> result = new HashMap<>();
         result.put("result", service.insBoardCmt(entity));
+        return result;
+    }
+
+    @GetMapping("/{iboard}")
+    public List<BoardCmtVo> selBoardCmtList(@PathVariable int iboard){
+        System.out.println("iboard : " + iboard);
+        return service.selBoardCmtList(iboard);
+    }
+
+    @DeleteMapping("/{icmt}")
+    public Map<String, Integer> delBoardCmt(@PathVariable int icmt) {
+        Map<String, Integer> result = new HashMap<>();
+        result.put("result", service.delBoardCmt(icmt));
         return result;
     }
 }
