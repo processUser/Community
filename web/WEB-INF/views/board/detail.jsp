@@ -7,7 +7,7 @@
             <button id="btnDel">삭제</button>
         </div>
     </c:if>
-    <div id="data" data-icategory="${data.icategory}" data-iboard="${data.iboard}" data-iuser="${sessionScope.loginUser.iuser}"></div>
+    <div id="data" data-writernm="${data.writernm}" data-profileimg="${data.profileimg}" data-icategory="${data.icategory}" data-iboard="${data.iboard}" data-iuser="${sessionScope.loginUser.iuser}"></div>
 
     <div>
         <c:if test="${requestScope.prevNext.previboard > 0}">
