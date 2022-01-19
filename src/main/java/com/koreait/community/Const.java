@@ -11,6 +11,7 @@ public class Const {
     public static final String DATA = "data";
     public static final String PREV_NEXT = "prevNext";
     public static final String I_CATEGORY = "icategory";
+    public static final String RESULT = "result";
 
     public static final String ERR_1 = "로그인에 실패했습니다.";
     public static final String ERR_2 = "아이디가 존재하지 않습니다";

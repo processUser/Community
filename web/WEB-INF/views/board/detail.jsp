@@ -16,6 +16,12 @@
         <c:if test="${requestScope.prevNext.nextiboard > 0}">
             <a href="/board/detail?iboard=${requestScope.prevNext.nextiboard}">다음글</a>
         </c:if>
+
+        <c:if test="${sessionScope.loginUser != null}">
+        <%--좋아요 버튼--%>
+        <i id="fav_icon" class="pointer far fa-thumbs-up font-size35"></i>
+
+        </c:if>
     </div>
 
     <div>${requestScope.data.icategory} ${requestScope.data.categorynm}</div>
